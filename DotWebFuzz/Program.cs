@@ -16,14 +16,17 @@ namespace DotWebFuzz {
             var app = new CommandApp<WebScanCommand>(registrar);
             app.Run(args);
         }
+
         private static void ConfigureServices(IServiceCollection serviceDescriptors) {
             serviceDescriptors
                 .AddSingleton<IWebScanningService, WebScanningService>();
 
             serviceDescriptors.AddHttpClient<IWebScanningService, WebScanningService>()
-                    .SetHandlerLifetime(TimeSpan.FromMinutes(2))
-                    .AddPolicyHandler(GetRetryPolicy());
-
+                .ConfigureHttpMessageHandlerBuilder(builder => {
+                    builder.PrimaryHandler = new HttpClientHandler {
+                        ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+                    };
+                });
         }
 
         private static TypeRegistrar ConfigureServiceRegistry() {

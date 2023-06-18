@@ -2,7 +2,7 @@
   "profiles": {
     "DotWebFuzz": {
       "commandName": "Project",
-      "commandLineArgs": "-w ./rockyou.txt -u http://172.31.8.106/FUZZ --hc 404",
+      "commandLineArgs": "-w ./rockyou.txt -u https://10.0.0.1/FUZZ --hc 404",
       "remoteDebugEnabled": false,
       "authenticationMode": "None",
       "remoteDebugMachine": "172.31.8.106:22"
