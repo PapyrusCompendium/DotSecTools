@@ -27,10 +27,10 @@ namespace DotWebFuzz.Commands.Settings {
         [Description("The web address to fuzz")]
         public string? WebAddress { get; set; }
 
-        [CommandOption("-T|--threads")]
-        [Description("Speed of sending HTTP requests to the host (CAUTION)")]
-        [DefaultValue(1)]
-        public int? Speed { get; set; }
+        [CommandOption("--ratelimit")]
+        [Description("Maximum rate of requests per second, 0 mean no maximum. (Caution)")]
+        [DefaultValue(200)]
+        public int? RateLimit { get; set; }
 
         [CommandOption("--hc|--hidecodes")]
         [Description("Http response code that you would like to omit from results")]
@@ -61,11 +61,6 @@ namespace DotWebFuzz.Commands.Settings {
             if (string.IsNullOrWhiteSpace(WordList)) {
 
                 errorMessageBuilder.AppendLine($"{nameof(WordList)} path cannot be empty!");
-            }
-
-            if (Speed is < 1 or > 10) {
-
-                errorMessageBuilder.AppendLine($"{nameof(Speed)} was out of bounds! (Nmap T Settings)");
             }
 
             if (!File.Exists(WordList)) {
