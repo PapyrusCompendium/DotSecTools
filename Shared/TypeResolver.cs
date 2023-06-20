@@ -1,7 +1,7 @@
 ﻿using Spectre.Console.Cli;
 
 namespace Shared {
-    public sealed class TypeResolver : ITypeResolver, IDisposable {
+    public class TypeResolver : ITypeResolver, IDisposable {
         private readonly IServiceProvider _provider;
 
         public TypeResolver(IServiceProvider provider) {

@@ -7,6 +7,7 @@ using Spectre.Console.Cli;
 
 namespace DotWebFuzz.Commands {
     public class WebScanCommand : Command<WebScanCommandSettings> {
+
         private readonly IWebScanningService _webScanningService;
 
         public WebScanCommand(IWebScanningService webScanningService) {
@@ -24,7 +25,6 @@ namespace DotWebFuzz.Commands {
 
                 var requestsSent = 0;
                 var startTime = DateTime.Now;
-                var concurrentRequestCount = 15;
 
                 while (!streamReader.EndOfStream) {
                     var scansPerSecond = Math.Round(requestsSent / DateTime.Now.Subtract(startTime).TotalSeconds, 1);
@@ -32,9 +32,9 @@ namespace DotWebFuzz.Commands {
                         Thread.Sleep(TimeSpan.FromSeconds((int)(scansPerSecond / settings.RateLimit!)));
                     }
 
-                    var taskCount = settings.RateLimit < concurrentRequestCount ? (int)settings.RateLimit! : concurrentRequestCount;
+                    var taskCount = settings.RateLimit < settings.Concurrent ? (int)settings.RateLimit! : settings.Concurrent;
                     taskCount = taskCount == 0 ? 1 : taskCount;
-                    var runningRequests = new Task[taskCount];
+                    var runningRequests = new Task[settings.Concurrent ?? 1];
 
                     for (var x = 0; x < runningRequests.Length; x++) {
                         var line = streamReader.ReadLine();

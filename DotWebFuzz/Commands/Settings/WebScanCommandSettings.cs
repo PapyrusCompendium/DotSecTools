@@ -32,6 +32,11 @@ namespace DotWebFuzz.Commands.Settings {
         [DefaultValue(200)]
         public int? RateLimit { get; set; }
 
+        [CommandOption("-c|--concurrent")]
+        [Description("How many http requests to send concurrently (Caution)")]
+        [DefaultValue(15)]
+        public int? Concurrent { get; set; }
+
         [CommandOption("--hc|--hidecodes")]
         [Description("Http response code that you would like to omit from results")]
         public int[] HideCodes { get; set; } = Array.Empty<int>();

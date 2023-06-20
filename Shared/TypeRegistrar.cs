@@ -4,7 +4,7 @@ using Spectre.Console.Cli;
 
 namespace Shared {
 
-    public sealed class TypeRegistrar : ITypeRegistrar {
+    public class TypeRegistrar : ITypeRegistrar {
         private readonly IServiceCollection _builder;
 
         public TypeRegistrar(IServiceCollection builder) {
