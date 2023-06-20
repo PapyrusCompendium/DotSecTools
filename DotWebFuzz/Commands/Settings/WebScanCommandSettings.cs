@@ -34,7 +34,7 @@ namespace DotWebFuzz.Commands.Settings {
 
         [CommandOption("-c|--concurrent")]
         [Description("How many http requests to send concurrently (Caution)")]
-        [DefaultValue(15)]
+        [DefaultValue(10)]
         public int? Concurrent { get; set; }
 
         [CommandOption("--hc|--hidecodes")]
