@@ -16,6 +16,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotLEnum", "DotLEnum\DotLEn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWebFuzz.Tests", "DotWebFuzz.Tests\DotWebFuzz.Tests.csproj", "{0D03B9FF-57E4-454C-B13D-54D4CB07DA51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotPortScan", "DotPortScan\DotPortScan.csproj", "{1C109B0B-DD83-4A13-B112-D978BD6E2319}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWindowsEnum", "DotWindowsEnum\DotWindowsEnum.csproj", "{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +42,14 @@ Global
 		{0D03B9FF-57E4-454C-B13D-54D4CB07DA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D03B9FF-57E4-454C-B13D-54D4CB07DA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0D03B9FF-57E4-454C-B13D-54D4CB07DA51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C109B0B-DD83-4A13-B112-D978BD6E2319}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C109B0B-DD83-4A13-B112-D978BD6E2319}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C109B0B-DD83-4A13-B112-D978BD6E2319}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C109B0B-DD83-4A13-B112-D978BD6E2319}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

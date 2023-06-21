@@ -7,7 +7,6 @@ using Shared;
 using Spectre.Console.Cli;
 
 namespace DotLEnum {
-    // TODO: Test AOT compilation for linux local system scanner
     public class Program {
         static void Main(string[] args) {
             var registrar = ConfigureServiceRegistry();

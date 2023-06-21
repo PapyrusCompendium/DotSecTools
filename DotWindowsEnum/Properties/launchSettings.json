@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DotWindowsEnum": {
+      "commandName": "Project",
+      "commandLineArgs": "ldap -i 10.10.11.207 -p 636"
+    }
+  }
+}
