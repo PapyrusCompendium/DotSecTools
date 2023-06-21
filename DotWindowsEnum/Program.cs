@@ -28,7 +28,8 @@ namespace DotWindowsEnum {
 
         private static void ConfigureServices(IServiceCollection serviceDescriptors) {
             serviceDescriptors
-                .AddSingleton<ILdapEnumerationService, LdapEnumerationService>();
+                .AddSingleton<ILdapEnumerationService, LdapEnumerationService>()
+                .AddSingleton<ISmbEnumerationService, SmbEnumerationService>();
         }
 
         private static TypeRegistrar ConfigureServiceRegistry() {

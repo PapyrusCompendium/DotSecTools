@@ -25,6 +25,11 @@ namespace DotWindowsEnum.Commands.Settings {
         [DefaultValue("")]
         public string? Password { get; set; } = null;
 
+        [CommandOption("-V|--verbose")]
+        [Description("The verbocity of the output.")]
+        [DefaultValue(false)]
+        public bool? Verbose { get; set; } = null;
+
         public override ValidationResult Validate() {
             var errorMessage = new StringBuilder();
 
