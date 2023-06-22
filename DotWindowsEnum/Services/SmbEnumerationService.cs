@@ -5,7 +5,7 @@ using SMBLibrary.Client;
 namespace DotWindowsEnum.Services {
     public class SmbEnumerationService : ISmbEnumerationService {
         public NTStatus SupportsNullCredentials(string address, string domain = "") {
-            ISMBClient smbClient = IsVersionOne(address) ? new SMB1Client() : new SMB1Client();
+            ISMBClient smbClient = IsVersionOne(address) ? new SMB1Client() : new SMB2Client();
             var connected = smbClient.Connect(address, SMBTransportType.DirectTCPTransport);
             if (!connected) {
                 return 0;
@@ -15,7 +15,7 @@ namespace DotWindowsEnum.Services {
         }
 
         public ISMBClient OpenSmbConnection(string address) {
-            ISMBClient smbClient = IsVersionOne(address) ? new SMB1Client() : new SMB1Client();
+            ISMBClient smbClient = IsVersionOne(address) ? new SMB1Client() : new SMB2Client();
             var connected = smbClient.Connect(address, SMBTransportType.DirectTCPTransport);
             if (!connected) {
                 return null!;

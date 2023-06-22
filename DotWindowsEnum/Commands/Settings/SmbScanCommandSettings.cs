@@ -27,6 +27,11 @@ namespace DotWindowsEnum.Commands.Settings {
         [DefaultValue("")]
         public string? Password { get; set; } = null;
 
+        [CommandOption("-d|--domain")]
+        [Description("The domain of the specified user.")]
+        [DefaultValue("")]
+        public string? Domain { get; set; } = null;
+
         public override ValidationResult Validate() {
             UpdatePortValuesInMemory();
 

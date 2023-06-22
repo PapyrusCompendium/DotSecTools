@@ -29,9 +29,28 @@ namespace DotWindowsEnum.Commands {
                 subNode.AddNode($"User Credentials: {loginSuccess}")
                     .AddNode($"Nt Response: {response}");
             }
+            EnumerateShares(settings, rootNode);
 
             AnsiConsole.Write(rootNode);
             return 1;
+        }
+
+        private void EnumerateShares(SmbScanCommandSettings settings, Tree rootNode) {
+            var smbConnection = _smbEnumerationService.OpenSmbConnection(settings.ServerIp!);
+            smbConnection.Login(settings.Domain, settings.Username, settings.Password);
+            var shares = smbConnection.ListShares(out var listStatus);
+            if (listStatus != SMBLibrary.NTStatus.STATUS_SUCCESS) {
+                return;
+            }
+
+            foreach (var share in shares) {
+                var shareNode = rootNode.AddNode($"File Share: ({share})");
+                var fileStore = smbConnection.TreeConnect(share, out var fileStoreStatus);
+                if (fileStoreStatus != SMBLibrary.NTStatus.STATUS_SUCCESS) {
+                    continue;
+                }
+            }
+
         }
     }
 }

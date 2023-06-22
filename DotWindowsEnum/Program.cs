@@ -1,5 +1,6 @@
 ﻿using DotWindowsEnum.Commands;
 using DotWindowsEnum.Services;
+using DotWindowsEnum.Services.Ldap;
 
 using Microsoft.Extensions.DependencyInjection;
 
@@ -23,13 +24,18 @@ namespace DotWindowsEnum {
 
             configurator.AddCommand<SmbScanCommand>("smb")
                 .WithDescription("Enumerate the Smb service on a specified address and port.")
-                .WithExample("smb", "-i", "127.0.0.1", "-p", "636");
+                .WithExample("smb", "-i", "127.0.0.1", "-p", "445");
         }
 
         private static void ConfigureServices(IServiceCollection serviceDescriptors) {
             serviceDescriptors
                 .AddSingleton<ILdapEnumerationService, LdapEnumerationService>()
-                .AddSingleton<ISmbEnumerationService, SmbEnumerationService>();
+                .AddSingleton<ISmbEnumerationService, SmbEnumerationService>()
+                .AddSingleton<ILdapConnectionService, LdapConnectionService>()
+                .AddSingleton<ILdapService, LdapService>()
+                .AddSingleton<ILdapEnumerationService, LdapEnumerationService>()
+                .AddSingleton<IMachineEnumerationService, MachineEnumerationService>()
+                .AddSingleton<IUserEnumerationService, UserEnumerationService>();
         }
 
         private static TypeRegistrar ConfigureServiceRegistry() {
