@@ -41,7 +41,7 @@ namespace DotWindowsEnum.Services.Ldap {
         }
 
         public bool SupportsNullCredentials(string ipAddress, int port) {
-            return ValidCredentials(ipAddress, port, string.Empty, string.Empty);
+            return GetRootLevelObjects(ipAddress, port).Length > 0;
         }
 
         public bool ValidCredentials(string ipAddress, int port, string username, string password) {

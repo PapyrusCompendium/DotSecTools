@@ -9,8 +9,6 @@ using Spectre.Console;
 
 namespace DotWindowsEnum.Services {
     public class LdapEnumerationService : ILdapEnumerationService {
-        private const string DEEP_PINK = "deeppink4_2";
-        private const string LIGHT_GREEN = "chartreuse1";
         private readonly ILdapConnectionService _ldapConnectionService;
         private readonly ILdapService _ldapService;
 
@@ -33,15 +31,21 @@ namespace DotWindowsEnum.Services {
         }
 
         public void AppendAuthenticationInfo(LdapScanSettings settings, Tree rootNode) {
+            var authNode = rootNode.AddNode("Authentication");
+
             var nullCreds = _ldapService.SupportsNullCredentials(settings.ServerIp!, settings.LdapPort ?? 0);
-            var valueColor = nullCreds ? LIGHT_GREEN : DEEP_PINK;
-            var authNode = rootNode.AddNode($"Authentication")
-                .AddNode($"Null Binding Credentials: [{valueColor}]{nullCreds}[/]");
+            var valueColor = nullCreds ? LdapUtilities.LIGHT_GREEN : LdapUtilities.DEEP_PINK;
+            authNode.AddNode($"Null Binding Credentials: [{valueColor}]{nullCreds}[/]")
+                .AddNode("[link]https://learn.microsoft.com/en-us/troubleshoot/windows-server/identity/anonymous-ldap-operations-active-directory-disabled[/]");
+
+            var guestCredentials = _ldapService.ValidCredentials(settings.ServerIp!, settings.LdapPort ?? 0, "Guest", string.Empty);
+            valueColor = guestCredentials ? LdapUtilities.LIGHT_GREEN : LdapUtilities.DEEP_PINK;
+            authNode.AddNode($"Guest Credentials: [{valueColor}]{guestCredentials}[/]");
 
             if (!string.IsNullOrWhiteSpace(settings.Username) || !string.IsNullOrWhiteSpace(settings.Password)) {
                 var validCredentials = _ldapService.ValidCredentials(settings.ServerIp!, settings.LdapPort ?? 0, settings.Username!, settings.Password!);
 
-                valueColor = validCredentials ? LIGHT_GREEN : DEEP_PINK;
+                valueColor = validCredentials ? LdapUtilities.LIGHT_GREEN : LdapUtilities.DEEP_PINK;
                 authNode.AddNode($"User Credentials: [{valueColor}]{validCredentials}[/]");
             }
         }
@@ -52,42 +56,40 @@ namespace DotWindowsEnum.Services {
             var connection = new LdapConnection(validConnectionOptions);
             connection.Connect(settings.ServerIp!, settings.LdapPort ?? 0);
 
-            var connectedColor = connection.Connected ? LIGHT_GREEN : DEEP_PINK;
+            var connectedColor = connection.Connected ? LdapUtilities.LIGHT_GREEN : LdapUtilities.DEEP_PINK;
             connectionOptionsNode.AddNode($"Connected: [{connectedColor}]{connection.Connected}[/]");
             if (!connection.Connected) {
                 return;
             }
 
-            var valueColor = validConnectionOptions.Ssl ? LIGHT_GREEN : DEEP_PINK;
+            var valueColor = validConnectionOptions.Ssl ? LdapUtilities.LIGHT_GREEN : LdapUtilities.DEEP_PINK;
             connectionOptionsNode.AddNode($"Ssl: [{valueColor}]{validConnectionOptions.Ssl}[/]");
             connectionOptionsNode.AddNode($"Tls: [{valueColor}]{connection.Tls}[/]");
-            connectionOptionsNode.AddNode($"Dn Schema: [chartreuse1]{connection.GetSchemaDn()}[/]");
+            connectionOptionsNode.AddNode($"Dn Schema: [{LdapUtilities.LIGHT_GREEN}]{connection.GetSchemaDn()}[/]");
 
             var currentUserId = connection.WhoAmI().AuthzId;
-            connectionOptionsNode.AddNode($"WhoAmI: [chartreuse1]{currentUserId}[/]")
-                .AddNode($"ReferralFollowing: [chartreuse1]{connection.Constraints.ReferralFollowing}[/]")
-                .AddNode($"MaxReferrals: [chartreuse1]{connection.Constraints.HopLimit}[/]");
+            connectionOptionsNode.AddNode($"WhoAmI: [{LdapUtilities.LIGHT_GREEN}]{currentUserId}[/]")
+                .AddNode($"ReferralFollowing: [{LdapUtilities.LIGHT_GREEN}]{connection.Constraints.ReferralFollowing}[/]")
+                .AddNode($"MaxReferrals: [{LdapUtilities.LIGHT_GREEN}]{connection.Constraints.HopLimit}[/]");
         }
-
-
 
         public void AppendDseInfo(LdapScanSettings settings, Tree rootNode) {
             var dseInfo = GetRootInfo(settings.ServerIp!, settings.LdapPort ?? 0);
-            var dseNode = rootNode.AddNode($"Root Dse Information");
-            dseNode.AddNode($"ServerName: [steelblue1_1]{dseInfo.ServerName}[/]");
+            var dseNode = rootNode.AddNode($"[{LdapUtilities.GOLD}]Root Dse Information[/]");
+            dseNode.AddNode($"ServerName: [{LdapUtilities.LIGHT_BLUE}]{dseInfo.ServerName}[/]");
 
             var subRootNode = dseNode.AddNode($"OtherAttributes");
             foreach (var attribute in dseInfo.OtherAttributes) {
                 var attributeNode = subRootNode.AddNode($"[thistle1]{attribute.Key}[/]");
                 foreach (var subAttributeList in attribute.Value) {
-                    attributeNode.AddNode($"[steelblue1_1]{subAttributeList}[/]");
+                    attributeNode.AddNode($"[{LdapUtilities.LIGHT_BLUE}]{subAttributeList}[/]");
                 }
             }
 
-            dseNode.AddNode($"DefaultNamingContext: [steelblue1_1]{dseInfo.DefaultNamingContext}[/]");
+            dseNode.AddNode($"DefaultNamingContext: [{LdapUtilities.LIGHT_BLUE}]{dseInfo.DefaultNamingContext}[/]");
             subRootNode = dseNode.AddNode($"NamingContexts");
             foreach (var namingContext in dseInfo.NamingContexts) {
-                subRootNode.AddNode($"[steelblue1_1]{namingContext}[/]");
+                subRootNode.AddNode($"[{LdapUtilities.LIGHT_BLUE}]{namingContext}[/]");
             }
 
             subRootNode = dseNode.AddNode($"SupportedControls");
@@ -97,7 +99,7 @@ namespace DotWindowsEnum.Services {
                     controlName = capabilityType.ToString();
                 }
 
-                subRootNode.AddNode($"[steelblue1_1]{controlName}[/]");
+                subRootNode.AddNode($"[{LdapUtilities.LIGHT_BLUE}]{controlName}[/]");
             }
 
             subRootNode = dseNode.AddNode($"SupportedCapabilities");
@@ -106,7 +108,7 @@ namespace DotWindowsEnum.Services {
                 if (LdapCapabilities.Capabilities.TryGetValue(capability, out var capabilityType)) {
                     capabilityName = capabilityType.ToString();
                 }
-                subRootNode.AddNode($"[steelblue1_1]{capabilityName}[/]");
+                subRootNode.AddNode($"[{LdapUtilities.LIGHT_BLUE}]{capabilityName}[/]");
             }
 
             subRootNode = dseNode.AddNode($"SupportedExtensions");
@@ -115,17 +117,17 @@ namespace DotWindowsEnum.Services {
                 if (LdapExtendedOperations.Extentions.TryGetValue(extention, out var capabilityType)) {
                     extentionName = capabilityType.ToString();
                 }
-                subRootNode.AddNode($"[steelblue1_1]{extentionName}[/]");
+                subRootNode.AddNode($"[{LdapUtilities.LIGHT_BLUE}]{extentionName}[/]");
             }
 
             subRootNode = dseNode.AddNode($"SupportedLDAPPolicies");
             foreach (var ldapPolicy in dseInfo.SupportedLDAPPolicies) {
-                subRootNode.AddNode($"[steelblue1_1]{ldapPolicy}[/]");
+                subRootNode.AddNode($"[{LdapUtilities.LIGHT_BLUE}]{ldapPolicy}[/]");
             }
 
             subRootNode = dseNode.AddNode($"SupportedSaslMechanisms");
             foreach (var saslMech in dseInfo.SupportedSaslMechanisms) {
-                subRootNode.AddNode($"[steelblue1_1]{saslMech}[/]");
+                subRootNode.AddNode($"[{LdapUtilities.LIGHT_BLUE}]{saslMech}[/]");
             }
         }
     }

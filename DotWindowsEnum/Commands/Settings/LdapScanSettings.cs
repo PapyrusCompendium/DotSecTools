@@ -30,6 +30,15 @@ namespace DotWindowsEnum.Commands.Settings {
         [DefaultValue(false)]
         public bool? Verbose { get; set; } = null;
 
+        [CommandOption("-d|--dump")]
+        [Description("Dump all objects to a file.")]
+        public string? DumpFile { get; set; } = null;
+
+        [CommandOption("-f|--overwrite")]
+        [Description("If Dump file exists, overwrite it.")]
+        [DefaultValue(false)]
+        public bool Overwrite { get; set; }
+
         public override ValidationResult Validate() {
             var errorMessage = new StringBuilder();
 
@@ -43,6 +52,10 @@ namespace DotWindowsEnum.Commands.Settings {
 
             if (!string.IsNullOrWhiteSpace(errorMessage.ToString())) {
                 return ValidationResult.Error(errorMessage.ToString());
+            }
+
+            if (!string.IsNullOrWhiteSpace(DumpFile) && @File.Exists(DumpFile) && !Overwrite) {
+                errorMessage.AppendLine("Specified dump file already exists!");
             }
 
             return ValidationResult.Success();

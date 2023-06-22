@@ -15,7 +15,7 @@ namespace DotWindowsEnum.Services.Ldap {
         }
 
         public void EnumerateMachines(LdapScanSettings settings, Tree rootNode) {
-            var machinesNode = rootNode.AddNode($"[gold3_1]Domain Machines[/]");
+            var machinesNode = rootNode.AddNode($"[{LdapUtilities.GOLD}]Domain Machines[/]");
             var allDomainMachines = _ldapService.GetAllDomainMachines(settings.ServerIp!, settings.LdapPort ?? 0);
 
             foreach (var machine in allDomainMachines) {

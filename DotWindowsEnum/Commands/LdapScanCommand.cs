@@ -10,8 +10,6 @@ using Spectre.Console.Cli;
 
 namespace DotWindowsEnum.Commands {
     public class LdapScanCommand : Command<LdapScanSettings> {
-        private const string DEEP_PINK = "deeppink4_2";
-        private const string LIGHT_GREEN = "chartreuse1";
         private readonly ILdapEnumerationService _ldapEnumerationService;
         private readonly IUserEnumerationService _userEnumerationService;
         private readonly IMachineEnumerationService _machineEnumerationService;
@@ -35,7 +33,7 @@ namespace DotWindowsEnum.Commands {
                     _ldapEnumerationService.AppendAuthenticationInfo(settings, rootNode);
                     _ldapEnumerationService.AppendConnectionInfo(settings, rootNode);
                     if (!_ldapEnumerationService.AnonymousInformationLeaking(settings.ServerIp!, settings.LdapPort ?? 0)) {
-                        rootNode.AddNode($"[{DEEP_PINK}]Cannot preform anonymous query![/]");
+                        rootNode.AddNode($"[{LdapUtilities.DEEP_PINK}]Cannot preform anonymous query![/]");
                         AnsiConsole.Write(rootNode);
                         return;
                     }

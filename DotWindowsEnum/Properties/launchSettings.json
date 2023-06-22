@@ -2,7 +2,7 @@
   "profiles": {
     "DotWindowsEnum": {
       "commandName": "Project",
-      "commandLineArgs": "smb -i 10.10.11.207"
+      "commandLineArgs": "ldap -i 10.10.11.207 -d objects.ld"
     }
   }
 }

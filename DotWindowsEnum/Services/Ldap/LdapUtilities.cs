@@ -4,6 +4,11 @@ using Spectre.Console;
 
 namespace DotWindowsEnum.Services.Ldap {
     public static class LdapUtilities {
+        internal const string DEEP_PINK = "deeppink4_2";
+        internal const string LIGHT_GREEN = "chartreuse1";
+        internal const string LIGHT_BLUE = "steelblue1_1";
+        internal const string GOLD = "gold3_1";
+
         public static void PrintKeyOutput(TreeNode userNode, LdapAttributeSet attributes, string label, string keyname, Func<LdapAttribute, string> convertValue) {
             if (attributes.ContainsKey(keyname)) {
                 var attribute = attributes[keyname];

@@ -15,7 +15,7 @@ namespace DotWindowsEnum.Services.Ldap {
         }
 
         public void EnumerateUsers(LdapScanSettings settings, Tree rootNode) {
-            var accountsNode = rootNode.AddNode($"[gold3_1]User Accounts[/]");
+            var accountsNode = rootNode.AddNode($"[{LdapUtilities.GOLD}]User Accounts[/]");
             var allUserAccounts = _ldapService.GetAllUserAccounts(settings.ServerIp!, settings.LdapPort ?? 0);
 
             foreach (var userAccount in allUserAccounts) {
