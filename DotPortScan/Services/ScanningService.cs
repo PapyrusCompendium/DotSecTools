@@ -2,22 +2,20 @@
 
 namespace DotPortScan.Services {
     public class ScanningService : IScanningService {
-        public ScanningService() {
-        }
-
-        public async Task<bool> ScanPort(string host, int port) {
-            var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
+        public async Task<bool> ScanPort(string host, int port, CancellationToken cancellationToken) {
+            using var socket = new Socket(SocketType.Stream, ProtocolType.Tcp);
             try {
-                await socket.ConnectAsync(host, port);
+                await socket.ConnectAsync(host, port, cancellationToken);
+                return true;
             }
-            catch (SocketException) {
-                return false;
+            catch {
             }
-            return socket.Connected;
-        }
-    }
+            finally {
+                socket.Close();
+                socket.Dispose();
+            }
 
-    public struct PortStatus {
-        public bool open;
+            return false;
+        }
     }
 }

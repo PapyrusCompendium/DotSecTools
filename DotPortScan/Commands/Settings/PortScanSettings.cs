@@ -15,6 +15,11 @@ namespace DotPortScan.Commands.Settings {
         [DefaultValue(0)]
         public int? RateLimit { get; set; }
 
+        [CommandOption("-t|--timeout")]
+        [Description("Maximum number of milliseconds to wait for a port to respond. (Caution)")]
+        [DefaultValue(1500)]
+        public int Timeout { get; set; }
+
         [CommandOption("-c|--concurrent")]
         [Description("How many http requests to send concurrently (Caution)")]
         [DefaultValue(500)]
@@ -47,6 +52,10 @@ namespace DotPortScan.Commands.Settings {
                     errorMessage.AppendLine($"Could not parse '{stringValue}' as an integer value.");
                     return 0;
                 }).ToArray();
+            }
+
+            if (Timeout == 0) {
+                errorMessage.AppendLine($"Timeout cannot be {Timeout}!");
             }
 
             if (!string.IsNullOrWhiteSpace(errorMessage.ToString())) {

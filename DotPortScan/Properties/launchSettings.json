@@ -2,7 +2,7 @@
   "profiles": {
     "DotPortScan": {
       "commandName": "Project",
-      "commandLineArgs": "-h 10.10.11.210 -p *"
+      "commandLineArgs": "-h 10.10.10.240 -p *"
     }
   }
 }

@@ -40,10 +40,13 @@ namespace DotPortScan.Commands {
 
                     var stateColor = state ? LIGHT_GREEN : DEEP_PINK;
                     var status = state ? "Open" : "Closed";
-                    _portDescriptions.TryGetValue(port.ToString(), out var description);
+                    if (!_portDescriptions.TryGetValue(port.ToString(), out var description)) {
+                        description = string.Empty;
+                    }
                     AnsiConsole.MarkupLine($"{port}: [{stateColor}]{status}[/] {description}");
                 });
             });
+
             return 1;
         }
 
@@ -60,8 +63,8 @@ namespace DotPortScan.Commands {
                     ctx.Spinner(Spinner.Known.Dots3);
                 }
 
-                var runningRequests = ScanChunkConcurrently(settings, ctx, consoleCallback, scanningPorts, portIndex, scansPerSecond);
-                portIndex += runningRequests.Length;
+                var completedRequests = ScanChunkConcurrently(settings, ctx, consoleCallback, scanningPorts, portIndex, scansPerSecond);
+                portIndex += completedRequests.Length;
             }
         }
 
@@ -73,12 +76,14 @@ namespace DotPortScan.Commands {
             taskCount = taskCount == 0 ? 1 : taskCount;
 
             var runningRequests = new Task[taskCount ?? 0];
+            var cancellationToken = new CancellationTokenSource(TimeSpan.FromMilliseconds(settings.Timeout));
+
             for (var x = 0; x < taskCount; x++) {
                 var port = scanningPorts[portIndex + x];
                 var runningTask = new TaskFactory().StartNew(async () => {
-                    ctx.Status($"({scansPerSecond}/sec) Scanning {port}");
+                    var state = await _scanningService.ScanPort(settings.Host!, port, cancellationToken.Token);
 
-                    var state = await _scanningService.ScanPort(settings.Host!, port);
+                    ctx.Status($"({scansPerSecond}/sec) Scanning {port} - {state}");
                     consoleCallback.Invoke(port, state);
                 });
                 runningRequests[x] = runningTask;
