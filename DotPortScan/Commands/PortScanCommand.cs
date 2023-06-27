@@ -80,9 +80,8 @@ namespace DotPortScan.Commands {
 
             for (var x = 0; x < taskCount; x++) {
                 var port = scanningPorts[portIndex + x];
-                var runningTask = new TaskFactory().StartNew(async () => {
+                var runningTask = Task.Run(async () => {
                     var state = await _scanningService.ScanPort(settings.Host!, port, cancellationToken.Token);
-
                     ctx.Status($"({scansPerSecond}/sec) Scanning {port} - {state}");
                     consoleCallback.Invoke(port, state);
                 });

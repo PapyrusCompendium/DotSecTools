@@ -17,12 +17,12 @@ namespace DotPortScan.Commands.Settings {
 
         [CommandOption("-t|--timeout")]
         [Description("Maximum number of milliseconds to wait for a port to respond. (Caution)")]
-        [DefaultValue(1500)]
+        [DefaultValue(500)]
         public int Timeout { get; set; }
 
         [CommandOption("-c|--concurrent")]
-        [Description("How many http requests to send concurrently (Caution)")]
-        [DefaultValue(500)]
+        [Description("How many requests to send concurrently (Caution)")]
+        [DefaultValue(5000)]
         public int? Concurrent { get; set; }
 
         [CommandOption("-p|--port")]
