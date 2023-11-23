@@ -44,13 +44,8 @@ namespace DotWindowsEnum.Commands {
             }
 
             foreach (var share in shares) {
-                var shareNode = rootNode.AddNode($"File Share: ({share})");
-                var fileStore = smbConnection.TreeConnect(share, out var fileStoreStatus);
-                if (fileStoreStatus != SMBLibrary.NTStatus.STATUS_SUCCESS) {
-                    continue;
-                }
+                rootNode.AddNode($"File Share: ({share})");
             }
-
         }
     }
 }

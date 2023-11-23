@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "LinuxInfo": {
+      "commandName": "Project",
+      "remoteDebugEnabled": true,
+      "remoteDebugMachine": "172.31.85.3",
+      "authenticationMode": "None"
+    },
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    }
+  }
+}

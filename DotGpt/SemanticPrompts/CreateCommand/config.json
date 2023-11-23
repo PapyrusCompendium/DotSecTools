@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "type": "completion",
+  "description": "Generate a linux command for a user's request.",
+  "completion": {
+    "max_tokens": 200,
+    "temperature": 0.0,
+    "top_p": 0.0,
+    "presence_penalty": 0.0,
+    "frequency_penalty": 0.0
+  },
+  "input": {
+    "parameters": [
+      {
+        "name": "input",
+        "description": "The request to use to create the requested linux command.",
+        "defaultValue": ""
+      },
+      {
+        "name": "system",
+        "description": "System details about the user's linux machine.",
+        "defaultValue": ""
+      }
+    ]
+  }
+}

@@ -12,13 +12,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{8596168C-EBA0-4CEF-B77D-F341B80A95B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotLEnum", "DotLEnum\DotLEnum.csproj", "{6E626C63-2DE8-4802-B33F-EA301FA4C0DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotLEnum", "DotLEnum\DotLEnum.csproj", "{6E626C63-2DE8-4802-B33F-EA301FA4C0DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWebFuzz.Tests", "DotWebFuzz.Tests\DotWebFuzz.Tests.csproj", "{0D03B9FF-57E4-454C-B13D-54D4CB07DA51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotWebFuzz.Tests", "DotWebFuzz.Tests\DotWebFuzz.Tests.csproj", "{0D03B9FF-57E4-454C-B13D-54D4CB07DA51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotPortScan", "DotPortScan\DotPortScan.csproj", "{1C109B0B-DD83-4A13-B112-D978BD6E2319}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotPortScan", "DotPortScan\DotPortScan.csproj", "{1C109B0B-DD83-4A13-B112-D978BD6E2319}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotWindowsEnum", "DotWindowsEnum\DotWindowsEnum.csproj", "{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotWindowsEnum", "DotWindowsEnum\DotWindowsEnum.csproj", "{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotGpt", "DotGpt\DotGpt.csproj", "{243D69C6-16AE-4F74-ADB1-3A8985951A04}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "LinuxEnumPortables", "LinuxEnumPortables", "{9D96F180-9092-4D50-A555-E357EB0ECC62}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WindowsEnumPortables", "WindowsEnumPortables", "{17555610-78D0-42D4-981C-BEA969539D71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinuxInfo", "LinuxInfo\LinuxInfo.csproj", "{373D3202-70B9-4796-8BE2-BBED2755335D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,9 +58,20 @@ Global
 		{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB3E872D-BC4C-408A-BA1E-5AF707DBF75F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{243D69C6-16AE-4F74-ADB1-3A8985951A04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{243D69C6-16AE-4F74-ADB1-3A8985951A04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{243D69C6-16AE-4F74-ADB1-3A8985951A04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{243D69C6-16AE-4F74-ADB1-3A8985951A04}.Release|Any CPU.Build.0 = Release|Any CPU
+		{373D3202-70B9-4796-8BE2-BBED2755335D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{373D3202-70B9-4796-8BE2-BBED2755335D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{373D3202-70B9-4796-8BE2-BBED2755335D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{373D3202-70B9-4796-8BE2-BBED2755335D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{373D3202-70B9-4796-8BE2-BBED2755335D} = {9D96F180-9092-4D50-A555-E357EB0ECC62}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38F6DE47-BD1C-4F4C-AA72-CB30BE9D8129}

@@ -22,7 +22,7 @@ namespace DotPortScan.Commands.Settings {
 
         [CommandOption("-c|--concurrent")]
         [Description("How many requests to send concurrently (Caution)")]
-        [DefaultValue(5000)]
+        [DefaultValue(1500)]
         public int? Concurrent { get; set; }
 
         [CommandOption("-p|--port")]

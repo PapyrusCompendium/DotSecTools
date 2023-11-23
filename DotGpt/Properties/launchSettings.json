@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DotGpt": {
+      "commandName": "Project",
+      "commandLineArgs": "-p \"wfuzz command to scan every web directory using rockyou.txt\" -c"
+    }
+  }
+}
